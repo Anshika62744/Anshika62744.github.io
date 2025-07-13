@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A comprehensive guide to analyzing solar observation data using SunPy and other Python libraries for solar radio physics research.">
+    <meta name="keywords" content="Solar Physics, Python, SunPy, Data Analysis, Solar Radio Physics, Tutorial">
+    <meta name="author" content="[Your Name]">
+    
+    <title>Getting Started with Solar Data Analysis in Python | [Your Name]</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="../css/styles.css">
+    
+    <!-- Syntax highlighting for code blocks -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism.min.css">
+    
+    <style>
+        .blog-article {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: var(--spacing-3xl) var(--spacing-lg);
+        }
+        
+        .article-header {
+            text-align: center;
+            margin-bottom: var(--spacing-3xl);
+            padding-top: 70px;
+        }
+        
+        .article-title {
+            font-size: var(--font-size-3xl);
+            color: var(--secondary-color);
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .article-meta {
+            display: flex;
+            justify-content: center;
+            gap: var(--spacing-lg);
+            color: var(--medium-gray);
+            font-size: var(--font-size-sm);
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .article-category {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: var(--spacing-xs) var(--spacing-sm);
+            border-radius: var(--border-radius-sm);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .article-content {
+            line-height: 1.8;
+            font-size: var(--font-size-lg);
+        }
+        
+        .article-content h2 {
+            color: var(--secondary-color);
+            margin-top: var(--spacing-2xl);
+            margin-bottom: var(--spacing-lg);
+            padding-bottom: var(--spacing-sm);
+            border-bottom: 2px solid var(--light-gray);
+        }
+        
+        .article-content h3 {
+            color: var(--secondary-color);
+            margin-top: var(--spacing-xl);
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .article-content p {
+            margin-bottom: var(--spacing-lg);
+            color: var(--dark-gray);
+        }
+        
+        .article-content ul, .article-content ol {
+            margin-bottom: var(--spacing-lg);
+            padding-left: var(--spacing-xl);
+        }
+        
+        .article-content li {
+            margin-bottom: var(--spacing-sm);
+            color: var(--dark-gray);
+        }
+        
+        .code-block {
+            background-color: var(--light-gray);
+            border-left: 4px solid var(--primary-color);
+            padding: var(--spacing-lg);
+            border-radius: var(--border-radius-md);
+            margin: var(--spacing-lg) 0;
+            overflow-x: auto;
+        }
+        
+        .highlight-box {
+            background-color: var(--light-gray);
+            border-left: 4px solid var(--primary-color);
+            padding: var(--spacing-lg);
+            border-radius: var(--border-radius-md);
+            margin: var(--spacing-lg) 0;
+        }
+        
+        .back-to-blog {
+            text-align: center;
+            margin-top: var(--spacing-3xl);
+            padding-top: var(--spacing-xl);
+            border-top: 1px solid var(--light-gray);
+        }
+        
+        @media (max-width: 768px) {
+            .blog-article {
+                padding: var(--spacing-2xl) var(--spacing-md);
+            }
+            
+            .article-title {
+                font-size: var(--font-size-2xl);
+            }
+            
+            .article-meta {
+                flex-direction: column;
+                gap: var(--spacing-sm);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="../index.html">[Your Name]</a>
+            </div>
+            <div class="nav-menu" id="nav-menu">
+                <a href="../index.html#home" class="nav-link">Home</a>
+                <a href="../index.html#about" class="nav-link">About</a>
+                <a href="../index.html#research" class="nav-link">Research</a>
+                <a href="../index.html#publications" class="nav-link">Publications</a>
+                <a href="../index.html#teaching" class="nav-link">Teaching</a>
+                <a href="../index.html#blog" class="nav-link active">Blog</a>
+                <a href="../index.html#contact" class="nav-link">Contact</a>
+            </div>
+            <div class="nav-toggle" id="nav-toggle">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Article -->
+    <article class="blog-article">
+        <header class="article-header">
+            <span class="article-category">Tutorial</span>
+            <h1 class="article-title">Getting Started with Solar Data Analysis in Python</h1>
+            <div class="article-meta">
+                <span><i class="fas fa-calendar"></i> January 15, 2024</span>
+                <span><i class="fas fa-clock"></i> 10 min read</span>
+                <span><i class="fas fa-tags"></i> Python, SunPy, Solar Physics</span>
+            </div>
+        </header>
+
+        <div class="article-content">
+            <p>
+                Solar physics research heavily relies on analyzing observational data from various space-based and ground-based instruments. 
+                Python has become the go-to language for solar data analysis, primarily due to the excellent 
+                <a href="https://sunpy.org/" target="_blank">SunPy</a> library and the broader scientific Python ecosystem.
+            </p>
+
+            <p>
+                In this tutorial, we'll walk through the basics of setting up a Python environment for solar data analysis 
+                and demonstrate how to work with solar radio burst data, which is particularly relevant for understanding 
+                the dynamic processes in the solar corona.
+            </p>
+
+            <h2>Setting Up Your Environment</h2>
+
+            <p>
+                Before we dive into data analysis, let's set up a proper Python environment with all the necessary libraries. 
+                I recommend using <code>conda</code> for package management as it handles the complex dependencies of astronomical software very well.
+            </p>
+
+            <div class="code-block">
+                <pre><code class="language-bash"># Create a new conda environment for solar physics
+conda create -n solar-physics python=3.9
+
+# Activate the environment
+conda activate solar-physics
+
+# Install essential packages
+conda install -c conda-forge sunpy astropy matplotlib numpy scipy pandas
+
+# Install additional radio astronomy packages
+pip install radioastronomy-data-tools</code></pre>
+            </div>
+
+            <div class="highlight-box">
+                <h4><i class="fas fa-lightbulb"></i> Pro Tip</h4>
+                <p>
+                    Always create separate conda environments for different projects. This prevents conflicts between 
+                    package versions and makes your research more reproducible.
+                </p>
+            </div>
+
+            <h2>Your First Solar Data Analysis</h2>
+
+            <p>
+                Let's start with a simple example: downloading and plotting solar radio data. We'll use data from the 
+                Wind/WAVES instrument, which is excellent for studying solar radio bursts.
+            </p>
+
+            <div class="code-block">
+                <pre><code class="language-python">import sunpy
+import sunpy.net
+from sunpy.net import Fido, attrs as a
+import matplotlib.pyplot as plt
+import numpy as np
+from astropy import units as u
+from datetime import datetime, timedelta
+
+# Set up the query for Wind/WAVES data
+start_time = '2023-03-13 17:00:00'
+end_time = '2023-03-13 18:00:00'
+
+# Search for Wind/WAVES data
+results = Fido.search(
+    a.Time(start_time, end_time),
+    a.Instrument('WAVES'),
+    a.Source('WIND')
+)
+
+print(f"Found {len(results)} files")
+print(results)</code></pre>
+            </div>
+
+            <h3>Downloading and Loading Data</h3>
+
+            <p>
+                Once we've identified the data we need, we can download it and load it into our analysis environment:
+            </p>
+
+            <div class="code-block">
+                <pre><code class="language-python"># Download the data (this may take a few minutes)
+files = Fido.fetch(results)
+
+# Load the data using appropriate SunPy functions
+# Note: The exact loading method depends on the data format
+from sunpy.timeseries import TimeSeries
+
+# Load time series data
+ts = TimeSeries(files[0])
+
+# Display basic information about the dataset
+print(f"Data shape: {ts.data.shape}")
+print(f"Time range: {ts.time_range}")
+print(f"Columns: {ts.data.columns.tolist()}")</code></pre>
+            </div>
+
+            <h2>Analyzing Solar Radio Bursts</h2>
+
+            <p>
+                Solar radio bursts are fascinating phenomena that provide insights into electron acceleration and 
+                plasma wave interactions in the solar corona. Let's create a dynamic spectrum to visualize these events:
+            </p>
+
+            <div class="code-block">
+                <pre><code class="language-python"># Create a dynamic spectrum plot
+fig, ax = plt.subplots(figsize=(12, 8))
+
+# Plot the radio dynamic spectrum
+# This example assumes we have frequency and time data
+frequencies = np.logspace(4, 6, 100)  # 10 kHz to 1 MHz
+times = ts.index
+
+# Create a 2D array for the dynamic spectrum
+# In real analysis, this would come from your radio data
+spectrum_data = np.random.random((len(frequencies), len(times)))
+
+# Plot the spectrum
+im = ax.pcolormesh(times, frequencies, spectrum_data, 
+                   cmap='viridis', shading='auto')
+
+# Customize the plot
+ax.set_yscale('log')
+ax.set_ylabel('Frequency (Hz)')
+ax.set_xlabel('Time (UT)')
+ax.set_title('Solar Radio Dynamic Spectrum - Wind/WAVES')
+
+# Add colorbar
+cbar = plt.colorbar(im, ax=ax)
+cbar.set_label('Intensity (arbitrary units)')
+
+# Format x-axis for better time display
+import matplotlib.dates as mdates
+ax.xaxis.set_major_formatter(mdates.DateFormatter('%H:%M'))
+ax.xaxis.set_major_locator(mdates.MinuteLocator(interval=10))
+
+plt.tight_layout()
+plt.show()</code></pre>
+            </div>
+
+            <h3>Identifying Radio Burst Features</h3>
+
+            <p>
+                When analyzing solar radio bursts, we're typically looking for specific features that tell us about 
+                the underlying physical processes:
+            </p>
+
+            <ul>
+                <li><strong>Type II bursts:</strong> Slow drift features indicating shock waves</li>
+                <li><strong>Type III bursts:</strong> Fast drift features from electron beams</li>
+                <li><strong>Type IV bursts:</strong> Broadband continuum from trapped electrons</li>
+                <li><strong>Fundamental-harmonic structure:</strong> Indicates plasma emission mechanisms</li>
+            </ul>
+
+            <div class="highlight-box">
+                <h4><i class="fas fa-info-circle"></i> Research Context</h4>
+                <p>
+                    In my own research at NJIT, I focus on the correlation between Type III radio bursts and 
+                    solar energetic particle events. Understanding these connections helps us better predict 
+                    space weather impacts on Earth.
+                </p>
+            </div>
+
+            <h2>Advanced Analysis Techniques</h2>
+
+            <p>
+                Once you're comfortable with basic plotting, you can move on to more sophisticated analysis techniques:
+            </p>
+
+            <h3>Automated Burst Detection</h3>
+
+            <div class="code-block">
+                <pre><code class="language-python">from scipy import signal
+from scipy.ndimage import gaussian_filter
+
+def detect_radio_bursts(spectrum, threshold=3.0):
+    """
+    Simple burst detection algorithm using statistical thresholding
+    """
+    # Smooth the data
+    smoothed = gaussian_filter(spectrum, sigma=1.0)
+    
+    # Calculate background and standard deviation
+    background = np.median(smoothed, axis=1, keepdims=True)
+    std_dev = np.std(smoothed, axis=1, keepdims=True)
+    
+    # Identify bursts above threshold
+    bursts = (smoothed - background) > (threshold * std_dev)
+    
+    return bursts
+
+# Apply burst detection
+burst_mask = detect_radio_bursts(spectrum_data)
+
+# Overlay burst detections on the spectrum
+fig, ax = plt.subplots(figsize=(12, 8))
+im = ax.pcolormesh(times, frequencies, spectrum_data, cmap='viridis')
+ax.contour(times, frequencies, burst_mask, levels=[0.5], colors='red', linewidths=2)
+ax.set_yscale('log')
+ax.set_title('Solar Radio Spectrum with Burst Detection')
+plt.show()</code></pre>
+            </div>
+
+            <h3>Cross-correlation Analysis</h3>
+
+            <p>
+                For studying the propagation of radio emissions through the solar corona, cross-correlation 
+                analysis between different frequencies can reveal important timing information:
+            </p>
+
+            <div class="code-block">
+                <pre><code class="language-python">def frequency_cross_correlation(spectrum, freq1_idx, freq2_idx):
+    """
+    Calculate cross-correlation between two frequency channels
+    """
+    signal1 = spectrum[freq1_idx, :]
+    signal2 = spectrum[freq2_idx, :]
+    
+    # Normalize signals
+    signal1 = (signal1 - np.mean(signal1)) / np.std(signal1)
+    signal2 = (signal2 - np.mean(signal2)) / np.std(signal2)
+    
+    # Calculate cross-correlation
+    correlation = np.correlate(signal1, signal2, mode='full')
+    lags = np.arange(-len(signal2) + 1, len(signal1))
+    
+    return lags, correlation
+
+# Example: correlate high and low frequency channels
+lags, corr = frequency_cross_correlation(spectrum_data, 10, 80)
+
+plt.figure(figsize=(10, 6))
+plt.plot(lags, corr)
+plt.xlabel('Time Lag (samples)')
+plt.ylabel('Cross-correlation')
+plt.title('Cross-correlation: High vs Low Frequency')
+plt.grid(True)
+plt.show()</code></pre>
+            </div>
+
+            <h2>Best Practices for Solar Data Analysis</h2>
+
+            <p>
+                Based on my experience analyzing solar radio data, here are some key best practices to follow:
+            </p>
+
+            <ol>
+                <li><strong>Always check data quality:</strong> Look for instrumental artifacts, data gaps, and calibration issues</li>
+                <li><strong>Document your analysis:</strong> Use Jupyter notebooks to create reproducible workflows</li>
+                <li><strong>Validate results:</strong> Cross-check findings with other instruments and wavelengths</li>
+                <li><strong>Stay current:</strong> Follow the latest developments in the SunPy community</li>
+                <li><strong>Share your code:</strong> Contribute to open science by sharing analysis tools</li>
+            </ol>
+
+            <h2>Resources for Further Learning</h2>
+
+            <p>
+                Solar data analysis is a vast field, and there's always more to learn. Here are some excellent resources 
+                to continue your journey:
+            </p>
+
+            <ul>
+                <li><a href="https://docs.sunpy.org/" target="_blank">SunPy Documentation</a> - Comprehensive guides and tutorials</li>
+                <li><a href="https://helioviewer.org/" target="_blank">Helioviewer</a> - Interactive solar imaging data browser</li>
+                <li><a href="https://cdaweb.gsfc.nasa.gov/" target="_blank">CDAWeb</a> - NASA's space physics data portal</li>
+                <li><a href="https://www.solarmonitor.org/" target="_blank">Solar Monitor</a> - Real-time solar activity tracking</li>
+                <li><a href="https://github.com/sunpy/sunpy" target="_blank">SunPy GitHub</a> - Source code and development discussions</li>
+            </ul>
+
+            <h2>Conclusion</h2>
+
+            <p>
+                Python and SunPy provide powerful tools for solar physics research, making complex data analysis 
+                accessible to researchers at all levels. Whether you're studying solar radio bursts, coronal mass ejections, 
+                or solar wind interactions, these tools will serve as the foundation for your research.
+            </p>
+
+            <p>
+                Remember that becoming proficient in solar data analysis takes time and practice. Start with simple 
+                analyses, gradually build complexity, and don't hesitate to reach out to the community for help. 
+                The solar physics community is incredibly supportive and always willing to help fellow researchers.
+            </p>
+
+            <div class="highlight-box">
+                <h4><i class="fas fa-comments"></i> Questions or Comments?</h4>
+                <p>
+                    I'd love to hear about your experiences with solar data analysis! Feel free to reach out if you have 
+                    questions about this tutorial or want to discuss solar radio physics research. You can find my 
+                    contact information on the <a href="../index.html#contact">main page</a>.
+                </p>
+            </div>
+        </div>
+
+        <div class="back-to-blog">
+            <a href="../index.html#blog" class="btn btn-primary">
+                <i class="fas fa-arrow-left"></i> Back to Blog
+            </a>
+        </div>
+    </article>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <h3>[Your Name]</h3>
+                    <p>Applied Physics PhD Student<br>New Jersey Institute of Technology</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-section">
+                        <h4>Quick Links</h4>
+                        <ul>
+                            <li><a href="../index.html#about">About</a></li>
+                            <li><a href="../index.html#research">Research</a></li>
+                            <li><a href="../index.html#publications">Publications</a></li>
+                            <li><a href="../index.html#teaching">Teaching</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-section">
+                        <h4>Academic Profiles</h4>
+                        <ul>
+                            <li><a href="https://scholar.google.com/citations?user=YOUR_ID" target="_blank">Google Scholar</a></li>
+                            <li><a href="https://orcid.org/YOUR-ORCID" target="_blank">ORCID</a></li>
+                            <li><a href="https://www.researchgate.net/profile/Your-Profile" target="_blank">ResearchGate</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-section">
+                        <h4>Connect</h4>
+                        <div class="footer-social">
+                            <a href="https://github.com/yourusername" target="_blank" aria-label="GitHub">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <a href="https://linkedin.com/in/yourprofile" target="_blank" aria-label="LinkedIn">
+                                <i class="fab fa-linkedin"></i>
+                            </a>
+                            <a href="https://twitter.com/yourusername" target="_blank" aria-label="Twitter">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 [Your Name]. All rights reserved.</p>
+                <p>Built with ❤️ for open science</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="../js/main.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-bash.min.js"></script>
+</body>
+</html>

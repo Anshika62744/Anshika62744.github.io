@@ -1,0 +1,17 @@
+# Sitemap for Academic Portfolio Website
+
+User-agent: *
+Allow: /
+
+# Important pages for indexing
+Allow: /index.html
+Allow: /blog/
+Allow: /css/
+Allow: /js/
+
+# Disallow sensitive or unnecessary files
+Disallow: /.github/
+Disallow: /README.md
+
+# Sitemap location
+Sitemap: https://yourusername.github.io/sitemap.xml
