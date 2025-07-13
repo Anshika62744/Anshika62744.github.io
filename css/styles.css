@@ -1270,6 +1270,14 @@ textarea:focus {
         0 0 20px rgba(255, 215, 0, 0.6),
         0 0 40px rgba(255, 140, 0, 0.4),
         0 0 60px rgba(255, 69, 0, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--njit-blue);
+    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
+    font-family: var(--font-family);
 }
 
 .sun::before {
@@ -1372,6 +1380,7 @@ textarea:focus {
     .sun {
         width: 80px;
         height: 80px;
+        font-size: 10px;
     }
     
     .radio-wave:nth-child(2) {
