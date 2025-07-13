@@ -14,4 +14,4 @@ Disallow: /.github/
 Disallow: /README.md
 
 # Sitemap location
-Sitemap: https://Anshika62744.github.io/sitemap.xml
+Sitemap: https://Anshika62744.github.io/Anshika62744/sitemap.xml
